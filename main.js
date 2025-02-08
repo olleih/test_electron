@@ -1,6 +1,8 @@
 const {app, BrowserWindow} = require('electron'); 
 const path = require('path');
 
+const isDev = !app.isPackaged; 
+
 function createMainWindow() {
     const mainWindow = new BrowserWindow({
         title: 'Electron',
@@ -15,7 +17,11 @@ function createMainWindow() {
 
     mainWindow.webContents.openDevTools();
 
-    mainWindow.loadFile(path.join(__dirname,'viteandelectron', 'dist', 'index.html'));
+    if (isDev) {
+        mainWindow.loadURL('http://localhost:5173'); 
+    } else {
+        mainWindow.loadFile(path.join(__dirname, 'viteandelectron', 'dist', 'index.html')); 
+    }
 }
 
 app.whenReady().then(createMainWindow);
