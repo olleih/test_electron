@@ -10,15 +10,17 @@ function createMainWindow() {
         height: 800,
         webPreferences: {
             nodeIntegration: true,
-            allowFileAccess: true 
+            allowFileAccess: true,
+            contextIsolation: false,
         }
        
     });
 
-    mainWindow.webContents.openDevTools();
 
     if (isDev) {
         mainWindow.loadURL('http://localhost:5173'); 
+        mainWindow.webContents.openDevTools();
+        console.log('devissä')
     } else {
         mainWindow.loadFile(path.join(__dirname, 'viteandelectron', 'dist', 'index.html')); 
     }

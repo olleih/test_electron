@@ -1,35 +1,29 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import TypedText from './TypedText';
 
-function App() {
-  const [count, setCount] = useState(0)
+const texts = [
+  'Hi, my name is Olivia',
+  'Nice to meet you',
+  'This is my first Electron + React app',
+  'Welcome!'
+];
+
+export default function App() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const handleNextText = () => {
+    if (currentIndex === texts.length) {
+      setCurrentIndex(0);
+    }
+    setCurrentIndex(currentIndex + 1);
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Electron + vite</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div>
+      <TypedText key={currentIndex} speed={200} text={texts[currentIndex]} />
+      <button onClick={handleNextText}>
+        Next
+      </button>
+    </div>
+  );
 }
-
-export default App
